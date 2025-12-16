@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Réservation Appartement</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+
+  <h2>Appartement à réserver</h2>
+
+  <div id="carouselAppartement" class="carousel slide mt-3" data-bs-ride="carousel">
+    <div class="carousel-inner" id="carousel-images"></div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselAppartement" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselAppartement" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <p class="mt-3">Prix par nuit : <span id="prix"></span></p>
+
+  <div id="appartementsList" class="row mt-4"></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const cacheKey = 'appartsCache';
+const cacheTime = 10*60*1000; // 10 minutes
+
+function renderAppartements(appartements) {
+  const list = document.getElementById('appartementsList');
+  list.innerHTML = '';
+  appartements.forEach(app => {
+    const col = document.createElement('div');
+    col.className = 'col-md-4 mb-3';
+    col.innerHTML = `
+      <div class="card">
+        <img src="${app.images[0]}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">${app.code}</h5>
+          <p class="card-text">${app.prix} $/nuit</p>
+          <button class="btn btn-primary" onclick="selectAppartement(${app.id})">Voir détails</button>
+        </div>
+      </div>
+    `;
+    list.appendChild(col);
+  });
+}
+
+function selectAppartement(id){
+  fetch(`api.php?appartement_id=${id}`)
+    .then(res=>res.json())
+    .then(app=>{
+      document.getElementById('prix').textContent = app.prix + ' $/nuit';
+      const carousel = document.getElementById('carousel-images');
+      carousel.innerHTML = '';
+      app.images.forEach((img, i)=>{
+        const div = document.createElement('div');
+        div.className = i===0?'carousel-item active':'carousel-item';
+        div.innerHTML = `<img src="${img}" class="d-block w-100">`;
+        carousel.appendChild(div);
+      });
+    });
+}
+
+// Chargement avec cache
+const cached = localStorage.getItem(cacheKey);
+const cacheDate = localStorage.getItem(cacheKey+'_time');
+
+if(cached && Date.now() - cacheDate < cacheTime){
+  renderAppartements(JSON.parse(cached));
+}else{
+  fetch('api.php?get_appartements=1')
+    .then(res=>res.json())
+    .then(data=>{
+      localStorage.setItem(cacheKey, JSON.stringify(data));
+      localStorage.setItem(cacheKey+'_time', Date.now());
+      renderAppartements(data);
+    });
+}
+</script>
+</body>
+</html>
