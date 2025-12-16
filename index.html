@@ -2,164 +2,53 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Apparte Aide Apartment Rental System</title>
-
+    <title>Admin Login - Apparte Aide</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- STYLE HERO MODERNE -->
-    <style>
-      .hero-section {
-        background: url('assets/images/hero.jpg') center/cover no-repeat;
-        height: 85vh;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-      }
-
-      .hero-overlay {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.55);
-      }
-
-      .hero-content {
-        position: relative;
-        z-index: 5;
-        text-shadow: 1px 1px 6px rgba(0,0,0,0.9);
-      }
-
-      footer a {
-        color: #ffffff;
-        text-decoration: none;
-      }
-      footer a:hover {
-        text-decoration: underline;
-      }
-    </style>
   </head>
+  <body class="bg-light">
+    <div class="container">
+      <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-md-5">
+          <div class="card shadow">
+            <div class="card-body p-5">
+              <div class="text-center mb-4">
+                <i class="bi bi-shield-lock text-primary" style="font-size: 3rem;"></i>
+                <h2 class="mt-3">Administration</h2>
+                <p class="text-muted">Apparte Aide</p>
+              </div>
 
-  <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="/">
-          <i class="bi bi-building"></i> Apparte Aide
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+              <form id="loginForm">
+                <div class="mb-3">
+                  <label class="form-label">Téléphone</label>
+                  <input type="tel" class="form-control" id="telephone" placeholder="+243..." required>
+                </div>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
-            <li class="nav-item"><a class="nav-link" href="/appartements.html">Appartements</a></li>
-            <li class="nav-item"><a class="nav-link" href="/mes-reservations.html">Mes Réservations</a></li>
-            <li class="nav-item"><a class="nav-link" href="/verify-qr.html">Vérifier QR</a></li>
-          </ul>
+                <div class="mb-3">
+                  <label class="form-label">Mot de passe</label>
+                  <input type="password" class="form-control" id="password" required>
+                </div>
+
+                <div id="errorAlert" class="alert alert-danger d-none"></div>
+
+                <button type="submit" class="btn btn-primary w-100" id="btnLogin">
+                  <i class="bi bi-box-arrow-in-right"></i> Se connecter
+                </button>
+              </form>
+
+              <div class="text-center mt-3">
+                <a href="/" class="text-muted small">
+                  <i class="bi bi-arrow-left"></i> Retour au site
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <div class="hero-section">
-      <div class="hero-overlay"></div>
-
-      <div class="hero-content text-center">
-        <h1 class="display-4 fw-bold mb-3">Bienvenue chez Apparte Aide</h1>
-        <p class="lead mb-3">Trouvez votre appartement meublé idéal à Bukavu</p>
-        <p class="mb-4">Muhumba • Nguba • Avenue du Gouverneur • Hippodrome • Labotte</p>
-
-        <a href="/appartements.html" class="btn btn-primary btn-lg">
-          <i class="bi bi-search"></i> Voir les appartements
-        </a>
       </div>
     </div>
-
-    <!-- FEATURES -->
-    <div class="container my-5">
-      <div class="row g-4">
-        
-        <div class="col-md-4">
-          <div class="card h-100 shadow-sm text-center">
-            <div class="card-body">
-              <i class="bi bi-geo-alt-fill text-primary" style="font-size: 3rem;"></i>
-              <h5 class="card-title mt-3">Quartiers Premium</h5>
-              <p class="card-text">Appartements situés dans les meilleurs quartiers de Bukavu</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card h-100 shadow-sm text-center">
-            <div class="card-body">
-              <i class="bi bi-house-check-fill text-success" style="font-size: 3rem;"></i>
-              <h5 class="card-title mt-3">Entièrement Meublés</h5>
-              <p class="card-text">Nos appartements sont prêts à accueillir immédiatement</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card h-100 shadow-sm text-center">
-            <div class="card-body">
-              <i class="bi bi-qr-code text-info" style="font-size: 3rem;"></i>
-              <h5 class="card-title mt-3">Réservation Facile</h5>
-              <p class="card-text">Système moderne avec QR Code pour plus de sécurité</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="bg-dark text-white py-5 mt-5">
-      <div class="container">
-        <div class="row text-center text-md-start">
-
-          <div class="col-md-4 mb-3">
-            <h5 class="fw-bold">Apparte Aide</h5>
-            <p>Location d'appartements meublés à Bukavu dans les meilleurs quartiers.</p>
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <h5 class="fw-bold">Nos Adresses</h5>
-            <p>Muhumba</p>
-            <p>Nguba</p>
-            <p>Avenue du Gouverneur</p>
-            <p>Hippodrome</p>
-            <p>Labotte</p>
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <h5 class="fw-bold">Contact</h5>
-            <p><i class="bi bi-telephone"></i> +243 84 47 14 807</p>
-            <p><i class="bi bi-envelope"></i> aparteaide123@gmail.com</p>
-
-            <p class="mt-3 fw-bold">Suivez-nous :</p>
-            <p>
-              <a href="#" class="me-2"><i class="bi bi-instagram"></i> aparteaide</a><br>
-              <a href="#"><i class="bi bi-facebook"></i> aparteaide</a>
-            </p>
-          </div>
-
-        </div>
-
-        <hr class="border-light">
-
-        <div class="text-center">
-          <p class="mb-0">&copy; 2025 Apparte Aide - Bukavu. Tous droits réservés.</p>
-        </div>
-      </div>
-    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/admin/login.js"></script>
   </body>
 </html>
